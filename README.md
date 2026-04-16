@@ -6,6 +6,8 @@
 
 The goal of this project is to design a scalable, clean, and user-friendly SaaS product interface that reflects real-world engineering standards.
 
+This repository now includes a working Next.js App Router auth flow powered by Supabase, protected dashboard routing via middleware, and a Zustand store that mirrors the signed-in user's profile on the dashboard.
+
 ---
 
 ## 🎯 Objective
@@ -19,7 +21,7 @@ The goal of this project is to design a scalable, clean, and user-friendly SaaS 
 
 ## 👩‍💻 Track
 
-**Frontend Developer (React + UI Focus)**
+Frontend Developer (React + UI Focus)
 
 ---
 
@@ -47,10 +49,11 @@ The goal of this project is to design a scalable, clean, and user-friendly SaaS 
 
 ## ✨ Core Features
 
-### 🔐 Authentication (Planned)
+### 🔐 Authentication
 
-* User Sign Up / Login
-* Secure authentication system (JWT-based)
+* User Sign Up / Login via Supabase Auth
+* Protected dashboard route via Next.js middleware
+* Signed-in user profile stored in Zustand for dashboard display
 
 ### 📋 Kanban Board
 
@@ -124,19 +127,34 @@ The UI is designed with the following principles:
 
 ---
 
-## 🧩 Project Structure (Planned)
+## 🧩 Project Structure
 
 ```
 taskmatrix/
 │
+├── app/             # Next.js App Router pages and global styles
 ├── components/      # Reusable UI components
-├── pages/           # Application pages
-├── hooks/           # Custom React hooks
-├── services/        # API calls
-├── utils/           # Helper functions
-├── styles/          # Global styles
-└── types/           # TypeScript types
+├── lib/             # Supabase helpers
+├── store/           # Zustand state
+└── middleware.ts    # Route protection
 ```
+
+---
+
+## 🔧 Setup
+
+1. Copy [.env.example](.env.example) to `.env.local`.
+2. Fill in your Supabase project URL and anon key.
+3. In Supabase Auth settings, disable email confirmation if you want immediate sign-up to log in right away during local testing.
+4. Install dependencies and run the app with `npm install` and `npm run dev`.
+
+Core routes:
+
+* [/login](app/login/page.tsx)
+* [/register](app/register/page.tsx)
+* [/dashboard](app/dashboard/page.tsx)
+
+Protected access is enforced in [middleware.ts](middleware.ts), and the dashboard reads the current user from [store/auth-store.ts](store/auth-store.ts).
 
 ---
 
